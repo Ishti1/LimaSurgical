@@ -3,8 +3,8 @@ window.LIMA = {
   brand: "Lima Surgical Equipment",
   tagline: "Precision vision for surgery and dentistry",
   /* Digits only, with country code. Example Bangladesh: 8801XXXXXXXXX */
-  whatsapp: "8801700000000",
-  whatsappDisplay: "+880 17 0000 0000",
+  whatsapp: "880174615346",
+  whatsappDisplay: "0174615346",
   email: "hello@limasurgical.com",
   location: "Bangladesh · Supplying clinics nationwide",
   deliveryDefault: "10–18 working days after confirmation",
