@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product · Lima Surgical Equipment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    LimaUI.mountShell("products");
+    const p = LimaUI.byId(LimaUI.qs("id")) || LIMA_PRODUCTS[0];
+    document.title = p.name + " · Lima Surgical Equipment";
+    const specRows = Object.entries(p.specs).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("");
+    const magOpts = (p.magnifications.length ? p.magnifications : ["Not applicable"]).map((m) => `<option>${m}</option>`).join("");
+    const colorOpts = p.colors.map((c) => `<option>${c}</option>`).join("");
+    document.getElementById("app-main").innerHTML = `
+      <div class="wrap pdp">
+        <div class="pdp-gallery">
+          <img id="hero-img" src="${p.image}" alt="${p.name}">
+          <div class="thumbs">${p.gallery.map((src, i) => `<img class="${i === 0 ? "is-on" : ""}" src="${src}" alt="">`).join("")}</div>
+        </div>
+        <div>
+          <span class="eyebrow">${p.badge}</span>
+          <h1>${p.name}</h1>
+          <p>${p.short}</p>
+          <ul class="meta">
+            <li>${p.priceLabel}</li>
+            <li>Delivery ${p.delivery}</li>
+            <li>Pre-order ${p.preorder ? "available" : "closed"}</li>
+          </ul>
+          <p class="note">${LIMA.preorderNote} Clicking WhatsApp opens a chat with this product’s specifications already filled in.</p>
+          <div class="hero-actions">
+            <a class="btn btn-wa" id="wa-direct" href="#">${LimaUI.iconWa()} WhatsApp this product</a>
+            <a class="btn btn-ghost" href="products.html">Back to catalogue</a>
+          </div>
+          <div class="panel" style="margin-top:18px">
+            <h3>Pre-order on WhatsApp</h3>
+            <form class="form" id="pre-form">
+              <label>Your name<input name="name" required placeholder="Clinic / doctor name"></label>
+              <label>Quantity<input name="qty" type="number" min="1" value="1"></label>
+              <label>Magnification<select name="mag">${magOpts}</select></label>
+              <label>Colour<select name="color">${colorOpts}</select></label>
+              <label>Notes<textarea name="notes" rows="3" placeholder="PD measurement, with/without light, shipping city…"></textarea></label>
+              <button class="btn btn-wa" type="submit">${LimaUI.iconWa()} Send pre-order</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="wrap split" style="padding-bottom:48px">
+        <div class="panel">
+          <h2>Why it is used</h2>
+          <p>${p.why}</p>
+          <h3>Typical procedures</h3>
+          <ul class="ticks">${p.usedFor.map((x) => `<li>${x}</li>`).join("")}</ul>
+        </div>
+        <div class="panel">
+          <h2>Specifications</h2>
+          <table class="spec-table">${specRows}</table>
+          <h3>Who it is for</h3>
+          <p>${p.forWhom}</p>
+          <h3>In the box</h3>
+          <ul class="ticks">${p.packing.map((x) => `<li>${x}</li>`).join("")}</ul>
+        </div>
+      </div>
+    `;
+    document.getElementById("wa-direct").href = LimaUI.waUrl(LimaUI.productMessage(p));
+    document.querySelectorAll(".thumbs img").forEach((img) => {
+      img.addEventListener("click", () => {
+        document.querySelectorAll(".thumbs img").forEach((t) => t.classList.remove("is-on"));
+        img.classList.add("is-on");
+        document.getElementById("hero-img").src = img.src;
+      });
+    });
+    document.getElementById("pre-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const extra = [
+        `Pre-order request`,
+        `Name: ${fd.get("name")}`,
+        `Quantity: ${fd.get("qty")}`,
+        `Magnification: ${fd.get("mag")}`,
+        `Colour: ${fd.get("color")}`,
+        `Notes: ${fd.get("notes") || "—"}`,
+      ].join("\n");
+      location.href = LimaUI.waUrl(LimaUI.productMessage(p, extra));
+    });
+  </script>
+</body>
+</html>

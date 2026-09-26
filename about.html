@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About · Lima Surgical Equipment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    LimaUI.mountShell("about");
+    document.getElementById("app-main").innerHTML = `
+      <div class="wrap page-head split">
+        <div>
+          <span class="eyebrow">The desk behind the catalogue</span>
+          <h1>Lima Surgical Equipment</h1>
+          <p>We supply surgical loupes and coaxial LED lighting to clinicians in dentistry and surgery-related fields. The current website shows only the models in the product sheets you provided: glasses-type and angled binocular loupes, magnetic interchangeable barrels, premium 2.5X/3.5X and TTL pairs, 3W and 5W lights, and the fitted storage case.</p>
+          <p>Manufacturer data on the sheets (Foshan Shiyi Medical Technology Co., Ltd.) is used for optical specifications. Lima is the local order desk: we confirm colour, magnification, light, price, and delivery on WhatsApp.</p>
+          <p><strong>WhatsApp:</strong> ${LIMA.whatsappDisplay}<br>
+          <strong>Email:</strong> ${LIMA.email}<br>
+          <strong>Coverage:</strong> ${LIMA.location}</p>
+          <a class="btn btn-wa" href="${LimaUI.waUrl("Hello Lima Surgical Equipment, I would like to speak with you about loupes.")}">${LimaUI.iconWa()} Open WhatsApp</a>
+        </div>
+        <div class="panel">
+          <h3>Before you go live</h3>
+          <p>Put your real WhatsApp number in <code>js/config.js</code> (<code>whatsapp</code> as digits with country code, and <code>whatsappDisplay</code> as the printed number). Replace the placeholder +880 17 0000 0000. Prices can stay as “Price on request” until you set them per model in <code>js/products.js</code>.</p>
+        </div>
+      </div>
+    `;
+  </script>
+</body>
+</html>

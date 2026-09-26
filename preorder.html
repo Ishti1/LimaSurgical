@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pre-order · Lima Surgical Equipment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    LimaUI.mountShell("preorder");
+    const opts = LIMA_PRODUCTS.map((p) => `<option value="${p.id}">${p.name} — ${p.delivery}</option>`).join("");
+    document.getElementById("app-main").innerHTML = `
+      <div class="wrap page-head split">
+        <div>
+          <span class="eyebrow">Reserve a pair</span>
+          <h1>Pre-order surgical loupes and lights</h1>
+          <p class="lead">${LIMA.preorderNote}</p>
+          <p>Listed delivery is a planning window from the catalogue, not a courier guarantee. Exact days are confirmed on WhatsApp after we lock magnification, colour, and whether a light is included. Prices are customised later — this form does not take payment.</p>
+          <form class="form panel" id="bulk-form">
+            <label>Product<select name="id">${opts}</select></label>
+            <label>Your name<input name="name" required></label>
+            <label>Clinic / hospital<input name="clinic"></label>
+            <label>Quantity<input name="qty" type="number" min="1" value="1"></label>
+            <label>Preferred magnification<input name="mag" placeholder="2.5X / 3.5X / 4X / 5X / 6X"></label>
+            <label>Colour<input name="color"></label>
+            <label>Need LED light?<select name="light"><option>Yes — 3W loupe light</option><option>Yes — 5W clip lamp</option><option>No light</option></select></label>
+            <label>Notes<textarea name="notes" rows="4" placeholder="City, PD, myopia glasses, delivery deadline…"></textarea></label>
+            <button class="btn btn-wa" type="submit">${LimaUI.iconWa()} Send to WhatsApp</button>
+          </form>
+        </div>
+        <div class="panel">
+          <h2>Delivery windows on the site</h2>
+          <table class="spec-table">
+            ${LIMA_PRODUCTS.map((p) => `<tr><th>${p.name}</th><td>${p.delivery}</td></tr>`).join("")}
+          </table>
+          <p class="note">Default planning figure: ${LIMA.deliveryDefault}. TTL custom PD pairs take longer because barrels are set to the wearer.</p>
+        </div>
+      </div>
+    `;
+    document.getElementById("bulk-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const p = LimaUI.byId(fd.get("id"));
+      const extra = [
+        `Pre-order from website form`,
+        `Name: ${fd.get("name")}`,
+        `Clinic: ${fd.get("clinic") || "—"}`,
+        `Quantity: ${fd.get("qty")}`,
+        `Preferred magnification: ${fd.get("mag") || "—"}`,
+        `Colour: ${fd.get("color") || "—"}`,
+        `Light: ${fd.get("light")}`,
+        `Notes: ${fd.get("notes") || "—"}`,
+      ].join("\n");
+      location.href = LimaUI.waUrl(LimaUI.productMessage(p, extra));
+    });
+  </script>
+</body>
+</html>

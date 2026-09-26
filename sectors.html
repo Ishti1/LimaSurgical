@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Who we serve · Lima Surgical Equipment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    LimaUI.mountShell("sectors");
+    document.getElementById("app-main").innerHTML = `
+      <div class="wrap page-head">
+        <span class="eyebrow">Target clients</span>
+        <h1>Equipment for people who work in surgery- and dentistry-related sectors</h1>
+        <p class="lead">Lima Surgical Equipment is built for clinicians who operate in a magnified, well-lit field — not for general consumer eyewear. If you treat teeth, operate in the mouth, ear, nose, throat, or do other close surgical work, this catalogue is for you.</p>
+      </div>
+      <section class="section">
+        <div class="wrap split">
+          <div class="panel">
+            <h2>Dental-related</h2>
+            <ul class="ticks">
+              <li>General dentists and clinic owners outfitting operatories</li>
+              <li>Endodontists locating canals and checking obturation</li>
+              <li>Implantologists aligning osteotomies and prosthetic margins</li>
+              <li>Periodontists and oral surgeons on flap and suture work</li>
+              <li>Restorative and aesthetic dentists finishing contacts and finish lines</li>
+              <li>Teaching hospitals and intern batches that share magnetic 4X/5X/6X sets</li>
+            </ul>
+            <p>Typical start: Premium 2.5X/3.5X or glasses-type 4X, plus a 3W or 5W LED. Typical step-up: 5X angular for implant and RCT.</p>
+          </div>
+          <div class="panel">
+            <h2>Surgery-related</h2>
+            <ul class="ticks">
+              <li>ENT / otolaryngology close-field procedures</li>
+              <li>Stomatology and maxillofacial minor lists</li>
+              <li>Theatre staff who need a portable binocular field without a microscope</li>
+              <li>Clinicians with cervical strain from years of unaided stooping</li>
+              <li>Operators who already wear myopia or presbyopia glasses</li>
+            </ul>
+            <p>Angled and magnetic series are specified when posture and interchangeable power matter more than a single fixed TTL pair.</p>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap panel">
+          <h2>How ordering works</h2>
+          <ol class="ticks">
+            <li>Open a product. Read specifications, delivery window, and packing list.</li>
+            <li>Click WhatsApp — the product name and specs are pre-filled.</li>
+            <li>Or submit the pre-order form (name, quantity, colour, magnification).</li>
+            <li>We confirm price (customised later), stock, and delivery days on chat before you pay.</li>
+          </ol>
+          <a class="btn btn-wa" href="${LimaUI.waUrl("Hello Lima Surgical Equipment, I work in a dental / surgical clinic and need loupe advice.")}">${LimaUI.iconWa()} Talk to the order desk</a>
+        </div>
+      </section>
+    `;
+  </script>
+</body>
+</html>

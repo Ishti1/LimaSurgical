@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalogue · Lima Surgical Equipment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    LimaUI.mountShell("products");
+    document.getElementById("app-main").innerHTML = `
+      <div class="wrap page-head">
+        <span class="eyebrow">Catalogue</span>
+        <h1>Loupes, lights, and cases from the product sheets</h1>
+        <p class="lead">Prices will be customised later and are quoted on WhatsApp. Each card sends the product name, listed delivery window, and specifications into chat. Pre-order is open on every item.</p>
+        <div class="filters">
+          <button class="chip is-on" data-cat="all">All</button>
+          <button class="chip" data-cat="loupes">Surgical loupes</button>
+          <button class="chip" data-cat="lighting">LED lights</button>
+          <button class="chip" data-cat="accessories">Accessories</button>
+        </div>
+        <div class="grid" id="cat-grid"></div>
+      </div>
+    `;
+    const grid = document.getElementById("cat-grid");
+    const draw = (cat) => {
+      const list = cat === "all" ? LIMA_PRODUCTS : LIMA_PRODUCTS.filter((p) => p.category === cat);
+      LimaUI.renderCards(list, grid);
+    };
+    draw("all");
+    document.querySelectorAll(".chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".chip").forEach((b) => b.classList.remove("is-on"));
+        btn.classList.add("is-on");
+        draw(btn.dataset.cat);
+      });
+    });
+  </script>
+</body>
+</html>
